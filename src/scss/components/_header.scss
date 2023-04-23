@@ -1,0 +1,8 @@
+.header {
+  color: $color-dark;
+}
+
+.header__title {
+  text-align: center;
+  @include font($size: $header-font-size, $weight: 600);
+}

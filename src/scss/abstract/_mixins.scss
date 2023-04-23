@@ -1,0 +1,27 @@
+@mixin font($size, $weight: 400, $style: normal) {
+  font: {
+    size: $size;
+    weight: $weight;
+    style: $style;
+  }
+}
+
+@mixin border-top($color) {
+  border-top: 2px solid lighten($color, 30%);
+}
+
+@mixin border-top-pressed($color) {
+  border-top: 2px solid darken($color, 40%);
+}
+
+@mixin border-bottom($color) {
+  border-bottom: 2px solid darken($color, 40%);
+}
+
+@mixin border-bottom-pressed($color) {
+  border-bottom: 2px solid lighten($color, 30%);
+}
+
+@mixin bg-color-hover($color) {
+ background-color: adjust-color($color, $hue: 40deg, $lightness: 15%);
+}
