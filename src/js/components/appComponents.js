@@ -2,7 +2,7 @@ const Header = {
   render: (classes = '') => `
       <header class="header ${classes}">
         <h1 class="header__title">RSS Virtual Keyboard</h1>
-      </header>`
+      </header>`,
 };
 
 const Content = {
@@ -10,7 +10,7 @@ const Content = {
     <main class="keyboard ${classes}" id="keyboard-container">
       <textarea class="keyboard__input" name="" id="keyboard-input"></textarea>
       <div class="keyboard__body" id="keyboard-body"></div>
-    </main>`
+    </main>`,
 };
 
 const Footer = {
@@ -18,7 +18,7 @@ const Footer = {
       <footer class="footer ${classes}">
         <p class="text">The keyboard was created in the Windows operating system</p>
         <p class="text">To switch the language between english and russian, use the combination: left ctrl + alt</p>
-      </footer>`
+      </footer>`,
 };
 
 const appComponents = {
