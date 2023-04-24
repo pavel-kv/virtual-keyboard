@@ -3,39 +3,40 @@ import appComponents from './components/appComponents';
 import Key from './components/Key';
 
 class AppVirtualKeyboard {
-  constructor(settings) {
-    const {
-      appContainer,
-      components,
-      keyboardId,
-      keyboardInputId,
-      keyboardBodyId,
-      keyboardKeyData,
-    } = settings;
+  constructor({
+    appContainer,
+    keyboardId,
+    keyboardInputId,
+    keyboardBodyId,
+    components,
+    keyboardKeyData,
+  }) {
+    this.components = components;
+    this.keyboardKeyData = keyboardKeyData;
 
-    this.renderComponents(appContainer, components);
+    this.renderComponents(appContainer);
 
-    const keyboard = document.querySelector(keyboardId);
-    const keyboardInput = document.querySelector(keyboardInputId);
-    const keyboardBody = document.querySelector(keyboardBodyId);
+    this.keyboard = document.querySelector(keyboardId);
+    this.keyboardInput = document.querySelector(keyboardInputId);
+    this.keyboardBody = document.querySelector(keyboardBodyId);
 
-    this.renderKeyboard(keyboardBody, keyboardKeyData);
+    this.renderKeyboard();
   }
 
-  renderComponents(container, components) {
+  renderComponents(container) {
     const root = document.createElement('div');
     root.classList.add(container);
-    const componentsList = Object.keys(components);
+    const componentsList = Object.keys(this.components);
 
     componentsList.forEach((item) => {
-      root.innerHTML += components[item].render();
+      root.innerHTML += this.components[item].render();
     });
 
     document.body.prepend(root);
   }
 
-  renderKeyboard(keyboard, keys) {
-    keys.forEach((row) => {
+  renderKeyboard() {
+    this.keyboardKeyData.forEach((row) => {
       const keyboardRow = document.createElement('div');
       keyboardRow.classList.add('keyboard__row');
 
@@ -43,7 +44,7 @@ class AppVirtualKeyboard {
         keyboardRow.innerHTML += Key.render(key);
       });
 
-      keyboard.append(keyboardRow);
+      this.keyboardBody.append(keyboardRow);
     });
   }
 }
