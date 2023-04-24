@@ -10,7 +10,7 @@ class AppVirtualKeyboard {
       keyboardId,
       keyboardInputId,
       keyboardBodyId,
-      keyboardKeys,
+      keyboardKeyData,
     } = settings;
 
     this.renderComponents(appContainer, components);
@@ -19,7 +19,7 @@ class AppVirtualKeyboard {
     const keyboardInput = document.querySelector(keyboardInputId);
     const keyboardBody = document.querySelector(keyboardBodyId);
 
-    this.renderKeyboard(keyboardBody, keyboardKeys);
+    this.renderKeyboard(keyboardBody, keyboardKeyData);
   }
 
   renderComponents(container, components) {
@@ -54,5 +54,5 @@ document.addEventListener('load', new AppVirtualKeyboard({
   keyboardInputId: '#keyboard-input',
   keyboardBodyId: '#keyboard-body',
   components: appComponents,
-  keyboardKeys,
+  keyboardKeyData: keyboardKeys,
 }));
