@@ -25,24 +25,18 @@
     display: block;
     @extend %transition;
   }
-  
+
   &__russian {
     display: none;
     @extend %transition;
   }
-  
-  &__case-up {
-    display: none;
-  }
-  
+
   &__case-down {
     display: block;
   }
-  
-  &__caps-lock {
-    display: none;
-  }
-  
+
+  &__case-up,
+  &__caps-lock,
   &__shift-caps-lock {
     display: none;
   }
@@ -50,16 +44,30 @@
   &_extend {
     flex: 1 0 auto;
   }
-  
+
   &_wide {
     width: $key-width-wide;
   }
-  
+
   &_middle {
     width: $key-width-middle;
   }
-  
+
   &_control {
     background-color: $color-bg-control-key;
+  }
+
+  &_pressed {
+    background-color: $color-bg-pressed-key;
+    @include border-top-pressed($color-bg-key);
+    @include border-bottom-pressed($color-bg-key);
+
+    .key__english {
+      transform: translateY(2px);
+    }
+
+    .key__russian {
+      transform: translateY(2px);
+    }
   }
 }

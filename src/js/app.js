@@ -1,6 +1,9 @@
 import keyboardKeys from '../data/keyboard-keys.json';
 import appComponents from './components/appComponents';
 import Key from './components/Key';
+import View from './modules/View';
+import Model from './modules/Model';
+import Controller from './modules/Controller';
 
 class AppVirtualKeyboard {
   constructor({
@@ -21,6 +24,19 @@ class AppVirtualKeyboard {
     this.keyboardBody = document.querySelector(keyboardBodyId);
 
     this.renderKeyboard();
+
+    const view = new View({
+      keyboard: this.keyboard,
+      keyboardInput: this.keyboardInput,
+      keyboardBody: this.keyboardBody,
+    });
+    const model = new Model(view);
+    const controller = new Controller({
+      keyboard: this.keyboard,
+      keyboardInput: this.keyboardInput,
+      keyboardBody: this.keyboardBody,
+      model,
+    });
   }
 
   renderComponents(container) {
