@@ -11,9 +11,11 @@ export default class Controller {
     this.model = model;
 
     this.pressedKeys = {};
+    this.pressedKeysOnKeyboard = {};
 
     this.handleMouseEvents = this.handleMouseEvents.bind(this);
     this.resetPressedKeys = this.resetPressedKeys.bind(this);
+    this.handleKeyboardEvents = this.handleKeyboardEvents.bind(this);
 
     this.addKeyboardEventListener();
   }
@@ -22,6 +24,8 @@ export default class Controller {
     this.keyboardBody.addEventListener('mousedown', this.handleMouseEvents);
     this.keyboardBody.addEventListener('mouseup', this.handleMouseEvents);
     document.body.addEventListener('mouseup', this.resetPressedKeys);
+    document.body.addEventListener('keydown', this.handleKeyboardEvents);
+    document.body.addEventListener('keyup', this.handleKeyboardEvents);
   }
 
   handleMouseEvents(event) {
@@ -76,5 +80,39 @@ export default class Controller {
   resetPressedKeys(event) {
     event.preventDefault();
     this.model.resetKeyPressed(this.pressedKeys);
+  }
+
+  handleKeyboardEvents(event) {
+    event.preventDefault();
+    const pressedKeyId = event.code;
+    const pressedVirtualKey = document.getElementById(pressedKeyId);
+
+    this.model.resetKeyPressedOnKeyboard(this.pressedKeysOnKeyboard);
+
+    if (!pressedVirtualKey) {
+      return;
+    }
+
+    const value = Controller.getValuePressedKey(pressedVirtualKey);
+    let state;
+
+    switch (event.type) {
+      case 'keydown':
+        state = true;
+        this.model.addKeyToSwitchLayout(pressedKeyId);
+        break;
+      case 'keyup':
+        state = false;
+        this.model.removeKeyToSwitchLayout(pressedKeyId);
+        break;
+      default:
+    }
+
+    if (pressedKeyId === 'CapsLock' && event.repeat) {
+      state = false;
+    }
+
+    this.pressedKeysOnKeyboard[pressedKeyId] = { id: pressedKeyId, state, value };
+    this.model.updateState(this.pressedKeysOnKeyboard);
   }
 }

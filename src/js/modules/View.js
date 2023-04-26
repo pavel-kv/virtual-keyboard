@@ -108,4 +108,16 @@ export default class View {
     this.keyboardInput.selectionStart = this.cursorPosition;
     this.keyboardInput.setSelectionRange(this.cursorPosition, this.cursorPosition);
   }
+
+  switchLanguageLayout() {
+    this.keyboardBody.classList.toggle('keyboard_lang-russian');
+  }
+
+  setLanguageLayout() {
+    this.keyboardBody.classList.add('keyboard_lang-russian');
+  }
+
+  removeLanguageLayout() {
+    this.keyboardBody.classList.remove('keyboard_lang-russian');
+  }
 }
