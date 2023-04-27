@@ -10,11 +10,11 @@ export default class Controller {
     this.keyboardBody = keyboardBody;
     this.model = model;
 
-    this.pressedKeys = {};
+    this.clickedKeysByMouse = {};
     this.pressedKeysOnKeyboard = {};
 
     this.handleMouseEvents = this.handleMouseEvents.bind(this);
-    this.resetPressedKeys = this.resetPressedKeys.bind(this);
+    this.resetClickedKeysByMouse = this.resetClickedKeysByMouse.bind(this);
     this.handleKeyboardEvents = this.handleKeyboardEvents.bind(this);
 
     this.addKeyboardEventListener();
@@ -23,7 +23,7 @@ export default class Controller {
   addKeyboardEventListener() {
     this.keyboardBody.addEventListener('mousedown', this.handleMouseEvents);
     this.keyboardBody.addEventListener('mouseup', this.handleMouseEvents);
-    document.body.addEventListener('mouseup', this.resetPressedKeys);
+    document.body.addEventListener('mouseup', this.resetClickedKeysByMouse);
     document.body.addEventListener('keydown', this.handleKeyboardEvents);
     document.body.addEventListener('keyup', this.handleKeyboardEvents);
   }
@@ -32,13 +32,13 @@ export default class Controller {
     event.preventDefault();
     const pressedKey = event.target.closest('.key');
 
-    this.model.resetKeyPressed(this.pressedKeys);
+    this.model.resetKeyPressed(this.clickedKeysByMouse);
 
     if (!pressedKey) {
       return;
     }
 
-    this.pressedKeys = {};
+    this.clickedKeysByMouse = {};
     const { id } = pressedKey;
     let state;
     const value = Controller.getValuePressedKey(pressedKey);
@@ -53,8 +53,8 @@ export default class Controller {
       default:
     }
 
-    this.pressedKeys[id] = { id, state, value };
-    this.model.updateState(this.pressedKeys);
+    this.clickedKeysByMouse[id] = { id, state, value };
+    this.model.updateState(this.clickedKeysByMouse);
   }
 
   static getValuePressedKey(keyElement) {
@@ -77,9 +77,9 @@ export default class Controller {
     return keyValue;
   }
 
-  resetPressedKeys(event) {
+  resetClickedKeysByMouse(event) {
     event.preventDefault();
-    this.model.resetKeyPressed(this.pressedKeys);
+    this.model.resetKeyPressed(this.clickedKeysByMouse);
   }
 
   handleKeyboardEvents(event) {
