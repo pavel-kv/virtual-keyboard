@@ -1,10 +1,14 @@
-import switchLayout from '../../data/settings';
+import {
+  languageLayout, switchLayout, KEY_LANGUAGE, DEFAULT_LANGUAGE,
+} from '../../data/settings';
 
 export default class Model {
   constructor(view) {
     this.view = view;
     this.capsLockState = false;
     this.changeLanguageLayout = new Set();
+
+    this.validateLanguageLayout();
   }
 
   updateState(pressedKeys) {
@@ -47,10 +51,30 @@ export default class Model {
     const isSwitchLayout = switchLayout.every((key) => this.changeLanguageLayout.has(key));
     if (isSwitchLayout) {
       this.view.switchLanguageLayout();
+      this.switchLanguageLayoutToLocalStorage();
     }
   }
 
   removeKeyToSwitchLayout(keyCode) {
     this.changeLanguageLayout.delete(keyCode);
+  }
+
+  switchLanguageLayoutToLocalStorage() {
+    localStorage.setItem(KEY_LANGUAGE, languageLayout[this.language]);
+    this.language = languageLayout[this.language];
+  }
+
+  isValidLanguageLayout() {
+    return Object.values(languageLayout).some((language) => language === this.language);
+  }
+
+  validateLanguageLayout() {
+    this.language = localStorage.getItem(KEY_LANGUAGE);
+    if (!this.isValidLanguageLayout()) {
+      this.language = DEFAULT_LANGUAGE;
+      localStorage.setItem(KEY_LANGUAGE, this.language);
+    } else if (this.language !== DEFAULT_LANGUAGE) {
+      this.view.setLanguageLayout();
+    }
   }
 }
