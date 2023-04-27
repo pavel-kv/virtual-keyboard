@@ -108,6 +108,8 @@ export default class Controller {
       default:
     }
 
+    this.model.switchLayout();
+
     if (pressedKeyId === 'CapsLock' && event.repeat) {
       state = false;
     }

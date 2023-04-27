@@ -47,19 +47,21 @@ export default class Model {
     if (switchLayout.some((key) => key === keyCode)) {
       this.changeLanguageLayout.add(keyCode);
     }
-
-    const isSwitchLayout = switchLayout.every((key) => this.changeLanguageLayout.has(key));
-    if (isSwitchLayout) {
-      this.view.switchLanguageLayout();
-      this.switchLanguageLayoutToLocalStorage();
-    }
   }
 
   removeKeyToSwitchLayout(keyCode) {
     this.changeLanguageLayout.delete(keyCode);
   }
 
-  switchLanguageLayoutToLocalStorage() {
+  switchLayout() {
+    const isSwitchLayout = switchLayout.every((key) => this.changeLanguageLayout.has(key));
+    if (isSwitchLayout) {
+      this.view.switchLanguageLayout();
+      this.switchLanguageLayoutInLocalStorage();
+    }
+  }
+
+  switchLanguageLayoutInLocalStorage() {
     localStorage.setItem(KEY_LANGUAGE, languageLayout[this.language]);
     this.language = languageLayout[this.language];
   }
