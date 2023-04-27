@@ -1,14 +1,11 @@
-import {
-  languageLayout, switchLayout, KEY_LANGUAGE, DEFAULT_LANGUAGE,
-} from '../../data/settings';
-
 export default class Model {
-  constructor(view) {
+  constructor(view, language) {
     this.view = view;
+    this.language = language;
     this.capsLockState = false;
-    this.changeLanguageLayout = new Set();
-
-    this.validateLanguageLayout();
+    this.setOfKeysToSwitchLayout = new Set();
+    this.currentLanguage = null;
+    this.checkLanguageLayout();
   }
 
   updateState(pressedKeys) {
@@ -44,38 +41,40 @@ export default class Model {
   }
 
   addKeyToSwitchLayout(keyCode) {
-    if (switchLayout.some((key) => key === keyCode)) {
-      this.changeLanguageLayout.add(keyCode);
+    if (this.language.switchKeys.some((key) => key === keyCode)) {
+      this.setOfKeysToSwitchLayout.add(keyCode);
     }
   }
 
   removeKeyToSwitchLayout(keyCode) {
-    this.changeLanguageLayout.delete(keyCode);
+    this.setOfKeysToSwitchLayout.delete(keyCode);
   }
 
   switchLayout() {
-    const isSwitchLayout = switchLayout.every((key) => this.changeLanguageLayout.has(key));
-    if (isSwitchLayout) {
+    const toSwitch = this.language.switchKeys.every((key) => this.setOfKeysToSwitchLayout.has(key));
+
+    if (toSwitch) {
       this.view.switchLanguageLayout();
       this.switchLanguageLayoutInLocalStorage();
     }
   }
 
   switchLanguageLayoutInLocalStorage() {
-    localStorage.setItem(KEY_LANGUAGE, languageLayout[this.language]);
-    this.language = languageLayout[this.language];
+    localStorage.setItem(this.language.key, this.language.layouts[this.currentLanguage]);
+    this.currentLanguage = this.language.layouts[this.currentLanguage];
   }
 
   isValidLanguageLayout() {
-    return Object.values(languageLayout).some((language) => language === this.language);
+    return Object.values(this.language.layouts).some((lang) => lang === this.currentLanguage);
   }
 
-  validateLanguageLayout() {
-    this.language = localStorage.getItem(KEY_LANGUAGE);
+  checkLanguageLayout() {
+    this.currentLanguage = localStorage.getItem(this.language.key);
+
     if (!this.isValidLanguageLayout()) {
-      this.language = DEFAULT_LANGUAGE;
-      localStorage.setItem(KEY_LANGUAGE, this.language);
-    } else if (this.language !== DEFAULT_LANGUAGE) {
+      this.currentLanguage = this.language.default;
+      localStorage.setItem(this.language.key, this.currentLanguage);
+    } else if (this.currentLanguage !== this.language.default) {
       this.view.setLanguageLayout();
     }
   }

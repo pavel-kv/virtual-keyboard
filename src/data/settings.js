@@ -1,10 +1,18 @@
-export const switchLayout = ['ControlLeft', 'AltLeft'];
+/*  Settings object for switching the language layout
+    switchKeys - keyboard shortcut to switch language layout
+    key - local storage key name
+    default - default language layout
+    layouts - language switching layouts
+*/
 
-export const KEY_LANGUAGE = 'custom_keyboard_layout';
-
-export const DEFAULT_LANGUAGE = 'eng';
-
-export const languageLayout = {
-  eng: 'rus',
-  rus: 'eng',
+const language = {
+  switchKeys: ['ControlLeft', 'AltLeft'],
+  key: 'custom_keyboard_layout',
+  default: 'english',
+  layouts: {
+    english: 'russian',
+    russian: 'english',
+  },
 };
+
+export default language;

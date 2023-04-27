@@ -4,6 +4,7 @@ import Key from './components/Key';
 import View from './modules/View';
 import Model from './modules/Model';
 import Controller from './modules/Controller';
+import language from '../data/settings';
 
 class AppVirtualKeyboard {
   constructor({
@@ -30,7 +31,7 @@ class AppVirtualKeyboard {
       keyboardInput: this.keyboardInput,
       keyboardBody: this.keyboardBody,
     });
-    const model = new Model(view);
+    const model = new Model(view, language);
     const controller = new Controller({
       keyboard: this.keyboard,
       keyboardInput: this.keyboardInput,
