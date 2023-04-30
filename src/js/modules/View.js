@@ -59,7 +59,7 @@ export default class View {
           }
       }
 
-      if (key.value !== 'CapsLock') {
+      if (key.value && key.value !== 'CapsLock') {
         if (key.state) {
           element.classList.add('key_pressed');
         } else {
@@ -70,6 +70,10 @@ export default class View {
   }
 
   updateText(keyValue) {
+    if (!keyValue) {
+      return;
+    }
+
     this.keyboardInput.setRangeText(keyValue, this.cursorPosition, this.cursorPosition);
     this.cursorPosition += keyValue.length;
     this.setCursorPosition();

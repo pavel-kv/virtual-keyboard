@@ -22,24 +22,6 @@ export default class Model {
     this.view.updateView(keysToReset);
   }
 
-  resetKeyPressedOnKeyboard(pressedKeys) {
-    const keysToReset = Object.values(pressedKeys).reduce((keys, key) => {
-      const currentKey = key;
-
-      if (currentKey.value === 'CapsLock') {
-        currentKey.state = false;
-      }
-
-      if (currentKey.value !== 'Alt' && currentKey.value !== 'Shift' && currentKey.value !== 'Ctrl' && currentKey.value !== 'CapsLock') {
-        currentKey.value = '';
-      }
-
-      return { ...keys, [currentKey.id]: currentKey };
-    }, {});
-
-    this.view.updateView(keysToReset);
-  }
-
   addKeyToSwitchLayout(keyCode) {
     if (this.language.switchKeys.some((key) => key === keyCode)) {
       this.setOfKeysToSwitchLayout.add(keyCode);

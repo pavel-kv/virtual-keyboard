@@ -38,6 +38,7 @@ class AppVirtualKeyboard {
       keyboardBody: this.keyboardBody,
       model,
     });
+    controller.addKeyboardEventListener();
   }
 
   renderComponents(container) {

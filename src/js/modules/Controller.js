@@ -16,8 +16,6 @@ export default class Controller {
     this.handleMouseEvents = this.handleMouseEvents.bind(this);
     this.resetClickedKeysByMouse = this.resetClickedKeysByMouse.bind(this);
     this.handleKeyboardEvents = this.handleKeyboardEvents.bind(this);
-
-    this.addKeyboardEventListener();
   }
 
   addKeyboardEventListener() {
@@ -58,8 +56,11 @@ export default class Controller {
   }
 
   static getValuePressedKey(keyElement) {
-    let keyValue = null;
+    if (!keyElement) {
+      return null;
+    }
 
+    let keyValue = null;
     [...keyElement.children].forEach((languageLayout) => {
       const languageLayoutDisplayProps = window.getComputedStyle(languageLayout).getPropertyValue('display');
 
@@ -87,12 +88,11 @@ export default class Controller {
     const pressedKeyId = event.code;
     const pressedVirtualKey = document.getElementById(pressedKeyId);
 
-    this.model.resetKeyPressedOnKeyboard(this.pressedKeysOnKeyboard);
-
     if (!pressedVirtualKey) {
       return;
     }
 
+    this.pressedKeysOnKeyboard = {};
     const value = Controller.getValuePressedKey(pressedVirtualKey);
     let state;
 
