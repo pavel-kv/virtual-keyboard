@@ -1,0 +1,73 @@
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $key-width-normal;
+  height: $key-height;
+  margin: 0 $key-margin-right 0 0;
+  color: $color-key;
+  background-color: $color-bg-key;
+  border-radius: $key-radius;
+  cursor: pointer;
+  @include border-top($color-bg-key);
+  @include border-bottom($color-bg-key);
+  @extend %transition;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    @extend %filter-bg-color;
+  }
+
+  &__english {
+    display: block;
+    @extend %transition;
+  }
+
+  &__russian {
+    display: none;
+    @extend %transition;
+  }
+
+  &__case-down {
+    display: block;
+  }
+
+  &__case-up,
+  &__caps-lock,
+  &__shift-caps-lock {
+    display: none;
+  }
+
+  &_extend {
+    flex: 1 0 auto;
+  }
+
+  &_wide {
+    width: $key-width-wide;
+  }
+
+  &_middle {
+    width: $key-width-middle;
+  }
+
+  &_control {
+    background-color: $color-bg-control-key;
+  }
+
+  &_pressed {
+    background-color: $color-bg-pressed-key;
+    @include border-top-pressed($color-bg-key);
+    @include border-bottom-pressed($color-bg-key);
+
+    .key__english {
+      transform: translateY(2px);
+    }
+
+    .key__russian {
+      transform: translateY(2px);
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: fit-content;
+  margin: 0 auto;
+
+  &__input {
+    width: 100%;
+    min-height: 200px;
+    max-height: 300px;
+    padding: $keyboard-padding;
+    margin: $keyboard-margin 0;
+    resize: vertical;
+    @extend %font-print-text;
+    @include font($size: $print-text-font-size, $weight: 600);
+  }
+
+  &__body {
+    max-width: fit-content;
+    margin: $keyboard-margin 0;
+    padding: $keyboard-padding;
+    background-color: $color-bg-keyboard;
+    border: $keyboard-border solid $color-border-keyboard;
+    border-radius: $keyboard-border-radius;
+    @include font($size: $key-font-size);
+    @extend %font-keyboard;
+  }
+
+  &__row {
+    display: flex;
+    margin: 0 0 $keyboard-row-margin 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &_shift-pressed {
+    .key__case-up {
+      display: block;
+    }
+
+    .key__case-down,
+    .key__caps-lock,
+    .key__shift-caps-lock {
+      display: none;
+    }
+  }
+
+  &_caps-lock-pressed {
+    .key__caps-lock {
+      display: block;
+    }
+
+    .key__case-up,
+    .key__case-down,
+    .key__shift-caps-lock {
+      display: none;
+    }
+
+    &.keyboard_shift-pressed .key__shift-caps-lock {
+      display: block;
+    }
+
+    &.keyboard_shift-pressed .key__case-up,
+    &.keyboard_shift-pressed .key__case-down,
+    &.keyboard_shift-pressed .key__caps-lock {
+      display: none;
+    }
+  }
+
+  &_lang-english {
+    .key__english {
+      display: block;
+    }
+
+    .key__russian {
+      display: none;
+    }
+  }
+
+  &_lang-russian {
+    .key__english {
+      display: none;
+    }
+
+    .key__russian {
+      display: block;
+    }
+  }
+}

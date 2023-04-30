@@ -1,0 +1,19 @@
+%font-primary {
+  font-family: "Arial", "Helvetica", sans-serif;
+}
+
+%font-keyboard {
+  font-family: "Verdana", "Geneva", "Tahoma", sans-serif;
+}
+
+%font-print-text {
+  font-family: "Courier New", Courier, monospace;
+}
+
+%transition {
+  transition: all 0.3s ease;
+}
+
+%filter-bg-color {
+  filter: hue-rotate(-30deg) brightness(1.5);
+}

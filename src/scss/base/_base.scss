@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  @include font($size: $page-font-size);
+  @extend %font-primary;
+  min-height: 100vh;
+  margin: 0;
+  color: $color-dark;
+}
