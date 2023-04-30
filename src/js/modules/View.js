@@ -31,7 +31,7 @@ export default class View {
           break;
         case 'Tab':
           if (key.state) {
-            this.updateText('    ');
+            this.updateText('\t');
           }
           break;
         case 'Backspace':
